@@ -60,18 +60,15 @@ var protagonista = function (x, y) {
 
   this.abajo = function () {
     if(this.movimiento2){
-      if(this.y < 330){
+      if(this.y < 340){
         this.y += this.velocidad;
       }else{
         this.movimiento2 = false
       }
     }
     
-    
   }
   this.izquierda = function () {
-    this.x -= this.velocidad;
-
     if(this.movimiento4){
       if (this.x > 0) {
         this.x -= this.velocidad
