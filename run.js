@@ -10,8 +10,6 @@ imgRex.src = 'img/rex.png';
 imgRex.height = "50";
 imgRex.width = "50";
 
-
-
 document.addEventListener('keydown', function (tecla) {
 
   //up
@@ -38,6 +36,10 @@ var protagonista = function (x, y) {
   this.x = x;
   this.y = y;
   this.velocidad = 2;
+  this.movimiento= true
+  this.movimiento2 = true
+  this.movimiento3 = true
+  this.movimiento4 = true
 
   this.dibuja = function () {
     //el metodo necesita un obj de tipo imagen y las coordenadas
@@ -46,16 +48,46 @@ var protagonista = function (x, y) {
   }
 
   this.arriba = function () {
-    this.y -= this.velocidad;
+    
+    if(this.movimiento3){
+      if(this.y > 1){
+        this.y -= this.velocidad;
+      }else{
+        this.movimiento3 = false
+      }
+    }
   }
+
   this.abajo = function () {
-    this.y += this.velocidad;
+    if(this.movimiento2){
+      if(this.y < 330){
+        this.y += this.velocidad;
+      }else{
+        this.movimiento2 = false
+      }
+    }
+    
+    
   }
   this.izquierda = function () {
     this.x -= this.velocidad;
+
+    if(this.movimiento4){
+      if (this.x > 0) {
+        this.x -= this.velocidad
+      } else {
+        this.movimiento4 = false;
+      }
+    }
   }
   this.derecha = function () {
-    this.x += this.velocidad;
+    if(this.movimiento){
+      if (this.x < 450) {
+        this.x += this.velocidad
+      } else {
+        this.movimiento = false;
+      }
+    }
   }
 }
 
@@ -112,8 +144,8 @@ setInterval(function () {
 
 //Para actualizar el canvas llama la funcion de borrar para generar la sensacion de animacion, en cada fotograma se borra primero y luego pinta, generando un
 function borrarCanvas() {
-  canvas.width = 1000;
-  canvas.heigth = 100;
+  canvas.width = 500;
+  canvas.heigth = 400;
 }
 
 function principal() {
