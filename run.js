@@ -1,6 +1,63 @@
 var canvas = document.getElementById('canvas');
+// https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/getContext
 var contextoCanvas = canvas.getContext('2d');
 var fps = 50;
+//creamos un objeto global de tipo imagen
+var imgRex = new Image();
+//agregamos el src
+imgRex.src = 'img/rex.png';
+//tamano
+imgRex.height = "50";
+imgRex.width = "50";
+
+
+
+document.addEventListener('keydown', function (tecla) {
+
+  //up
+  if (tecla.keyCode === 38) {
+    prota.arriba()
+  }
+  //left
+  if (tecla.keyCode === 37) {
+    prota.izquierda()
+  }
+
+  //down
+  if (tecla.keyCode === 40) {
+    prota.abajo()
+  }
+
+  //right
+  if (tecla.keyCode === 39) {
+    prota.derecha()
+  }
+})
+
+var protagonista = function (x, y) {
+  this.x = x;
+  this.y = y;
+  this.velocidad = 2;
+
+  this.dibuja = function () {
+    //el metodo necesita un obj de tipo imagen y las coordenadas
+    //https://developer.mozilla.org/es/docs/Web/API/CanvasRenderingContext2D/drawImage
+    contextoCanvas.drawImage(imgRex, this.x, this.y)
+  }
+
+  this.arriba = function () {
+    this.y -= this.velocidad;
+  }
+  this.abajo = function () {
+    this.y += this.velocidad;
+  }
+  this.izquierda = function () {
+    this.x -= this.velocidad;
+  }
+  this.derecha = function () {
+    this.x += this.velocidad;
+  }
+}
 
 //clase con de la caja
 var caja = function (x, y) {
@@ -38,26 +95,26 @@ var caja = function (x, y) {
         this.derecha = true
       }
     }
-
   }
 }
-
 
 var caja1 = new caja(10, 50)
 var caja2 = new caja(10, 120)
 var caja3 = new caja(10, 230)
+var prota = new protagonista(10, 120)
 
 //intervalo de ejecución
 setInterval(function () {
   principal()
+
+
 }, 1000 / fps)
 
 //Para actualizar el canvas llama la funcion de borrar para generar la sensacion de animacion, en cada fotograma se borra primero y luego pinta, generando un
 function borrarCanvas() {
-  canvas.width = 500;
-  canvas.heigth = 400;
+  canvas.width = 1000;
+  canvas.heigth = 100;
 }
-
 
 function principal() {
   borrarCanvas();
@@ -67,6 +124,7 @@ function principal() {
   caja1.mueveDerecha(1)
   caja2.mueveDerecha(1.5)
   caja3.mueveDerecha(2)
+  prota.dibuja()
   console.log('dibuja el canvas')
 
 }
